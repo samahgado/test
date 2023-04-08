@@ -186,7 +186,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="grid place-content-center bg-white ">
-        <p className="text-sm font-light">
+        <p className="p-2 font-light mx-auto" style={{fontSize:'clamp(0.65rem, 2.5vw, 0.9rem)'}}>
           © Fouad Jer Douaihy 1919. All Rights Reserved. Website by Apperture.
         </p>
       </div>

@@ -1,9 +1,30 @@
+"use client"
+
 import React from 'react'
 import Link from 'next/link'
+import { ChakraProvider } from '@chakra-ui/react'
+import { FormControl,FormErrorMessage, FormLabel, Textarea ,FormHelperText} from '@chakra-ui/react'
+import { Formik} from 'formik';
+ import * as Yup from 'yup';
+ 
+
+
+ const SpecialInstructionSchema = Yup.object().shape({
+  specialInstruction: Yup.string()
+    .min(7, 'Too Short!')
+    .max(50, 'Too Long!')
+    
+   });
+
+
 
 export default function ProductDetails() {
+  
+    
+    
   return (
     <div className='container max-w-md mx-auto bg-white p-6 '>
+     
       <div className=' border-b py-4 border-slate-300 '>
       <h2 className='text-sm font-light mb-4'>MAAMOUL</h2>
       <div className="relative ">
@@ -34,9 +55,57 @@ export default function ProductDetails() {
               </div>
       </div>
 
-      <div>
-        <h2>form</h2>
-      </div>
+      
+      <ChakraProvider>
+        <div className='my-10 ' > 
+          <Formik 
+          initialValues={{
+            specialInstruction : '',
+         }}
+         validationSchema={SpecialInstructionSchema}
+          onSubmit={values => {
+            console.log(values);
+       }}
+          >
+           {({ handleSubmit, handleChange, values, touched, errors }) => (
+          
+            <form className="" onSubmit={handleSubmit}>
+              
+        
+          <FormControl
+                
+                isInvalid={!!errors.specialInstruction && touched.specialInstruction}
+              >
+                 <FormLabel htmlFor='discountCode' className='leading-8 text-sm font-semibold tracking-normal'>Special Instructions</FormLabel>
+                <Textarea
+                  id="specialInstruction"
+                  
+                  value={values.specialInstruction}
+                  onChange={handleChange}
+                  placeholder="Let us if you have any special instruction for this item"
+                  
+                  resize='none'
+                  className='h-48 w-full text-xs  '
+                  
+                
+                  
+                />
+                <FormHelperText className='font-normal text-sm py-1 px-2 text-gray-500 tracking-wide'>900 characters remaining</FormHelperText>
+                <FormErrorMessage>{errors.specialInstruction}</FormErrorMessage>
+              </FormControl>
+              <button type='submit' className="tracking-wide w-full bg-blue-500 text-sm hover:bg-blue-600 text-white font-normal   py-2  my-4 rounded-md">
+              ADD TO BAG
+</button>
+
+            </form>
+             )}
+          </Formik>
+
+          
+          </div>
+          
+          </ChakraProvider>
+      
 
         
       
